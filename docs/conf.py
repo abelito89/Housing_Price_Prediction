@@ -11,6 +11,12 @@ copyright = '2023, Abelito'
 author = 'Abelito'
 release = '0.1.0'
 
+# Agrega la ruta de los notebooks a la variable "sys.path"
+import os
+import sys
+sys.path.insert(0, os.path.abspath('notebooks'))
+
+
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
