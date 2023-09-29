@@ -17,6 +17,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.ensemble import VotingRegressor
 from scipy.stats import uniform #logra una distribucion igualmente probable del parametro que se le especifique
 from sklearn.model_selection import RandomizedSearchCV
+import pickle
 
 
 def sep_X_de_y(df_num):
@@ -65,3 +66,9 @@ def val_R2_score(modelo_entrenado,X_val_scaled, y_val):
     best_model = modelo_entrenado.best_estimator_
     r2_score = best_model.score(X_val_scaled, y_val)
     return r2_score
+
+
+def model_pickle(model):
+    with open('models/model_ensemble_trained.pkl', 'wb') as file:
+        pickle.dump(model, file)
+    return file

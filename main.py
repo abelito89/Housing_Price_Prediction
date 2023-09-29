@@ -35,6 +35,7 @@ def main():
     print("EL R2_score del modelo con el set de validacion es:", validation)
     prueba = train_model.val_R2_score(modelo_entrenado,X_test_scaled, y_test)
     print("EL R2_score del modelo con el set de prueba es:", prueba)
+    model_pickle = train_model.model_pickle(modelo_entrenado)
 
 if __name__ == "__main__":
     main()
