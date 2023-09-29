@@ -1,5 +1,11 @@
 """
 Este es el script principal donde se ejecutara todo el proyecto ejecutando funciones definidas en los diferentes modulos
+Consta de 2 funciones:
+- visualizations: esta implementada llamando funciones contenidas en el modulo visualize
+- main: ejecuta la carga de los datos como dataframe, separa el dataframe en train_set, val_set y test_set,
+ejecuta un escalamiento de los datos, entrena un modelo ensemble learning entre un SVR y una Regresion Lineal,
+realiza predicciones con los sets de validacion y prueba, calculando para cada uno la metrica R2_score, 
+descarga el modelo entrenado como un archivo model_ensemble_trained.pkl
 """
 import sys
 sys.path.append("C:\\Abel\\Trabajo\\Proyectos Ciencia de Datos\\House Price Prediction\\src\\visualization")
