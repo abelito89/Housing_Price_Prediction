@@ -6,8 +6,8 @@ import sys
 carga_model = pickle.load(open('../models/model_ensemble_trained.pkl', 'rb'))
 carga_robustscaler = pickle.load(open('../models/robust_scaled_trained.pkl', 'rb'))
 
-def scaling(carga_robustscaler,df_num):
-    return carga_robustscaler.fit_transform(df_num)
+def scaling(carga_robustscaler,df):
+    return carga_robustscaler.fit_transform(df)
 
 
 def prediction(carga_model,df_scaled):
@@ -23,54 +23,94 @@ def main():
         bathrooms = st.number_input("Introduzca la cantidad de baños")
         stories = st.number_input("Introduzca la cantidad de pisos de la casa")
         mainroad = st.selectbox("La casa esta en una avenida principal?", ["yes","no"])
+        if mainroad == "yes":
+            mainroad_yes = "1"
+            mainroad_no = "0"
+        else:
+            mainroad_yes = "0"
+            mainroad_no = "1"            
+        
         guestroom = st.selectbox("La casa tiene cuarto de huespedes?", ["yes","no"])
+        if guestroom == "yes":
+            guestroom_yes = "1"
+            guestroom_no = "0"
+        else:
+            guestroom_yes = "0"
+            guestroom_no = "1" 
         basement = st.selectbox("La casa tiene sotano?", ["yes","no"])
+        if basement == "yes":
+            basement_yes = "1"
+            basement_no = "0"
+        else:
+            basement_yes = "0"
+            basement_no = "1" 
         hotwaterheating = st.selectbox("La casa tiene calefaccion por agua?", ["yes","no"])
+        if hotwaterheating == "yes":
+            hotwaterheating_yes = "1"
+            hotwaterheating_no = "0"
+        else:
+            hotwaterheating_yes = "0"
+            hotwaterheating_no = "1"
         airconditioning = st.selectbox("La casa tiene aire acondicionado?", ["yes","no"])
+        if airconditioning == "yes":
+            airconditioning_yes = "1"
+            airconditioning_no = "0"
+        else:
+            airconditioning_yes = "0"
+            airconditioning_no = "1"
         parking = st.number_input("Introduzca la cantidad de estacionamientos de la casa")
         prefarea = st.selectbox("La casa esta ubicada en un area de preferencia?", ["yes","no"])
+        if prefarea == "yes":
+            prefarea_yes = "1"
+            prefarea_no = "0"
+        else:
+            prefarea_yes = "0"
+            prefarea_no = "1"
         furnishingstatus = st.selectbox("Cual es el estado de moviliario de la casa?", ["furnished","semi-furnished","unfurnished"])
+        if furnishingstatus == "furnished":
+            furnishingstatus_furnished = "1"
+            furnishingstatus_semi_furnished = "0"
+            furnishingstatus_unfurnished = "0"
+
+        elif furnishingstatus == "semi-furnished":
+            furnishingstatus_furnished = "0"
+            furnishingstatus_semi_furnished = "1"
+            furnishingstatus_unfurnished = "0"
+        else:
+            furnishingstatus_furnished = "0"
+            furnishingstatus_semi_furnished = "0"
+            furnishingstatus_unfurnished = "1"
         dict_entrada = {
             "area": area, 
             "bedrooms": bedrooms,
             "bathrooms": bathrooms,
             "stories": stories,
-            "mainroad": mainroad,
-            "guestroom": guestroom,
-            "basement": basement,
-            "hotwaterheating": hotwaterheating,
-            "airconditioning": airconditioning,
-            "parking": parking,
-            "prefarea": prefarea,
-            "furnishingstatus": furnishingstatus
+            "parking": parking,            
+            "mainroad_no": mainroad_no,
+            "mainroad_yes": mainroad_yes,            
+            "guestroom_no": guestroom_no,
+            "guestroom_yes": guestroom_yes,            
+            "basement_no": basement_no,
+            "basement_yes": basement_yes,            
+            "hotwaterheating_no": hotwaterheating_no,
+            "hotwaterheating_yes": hotwaterheating_yes,            
+            "airconditioning_no": airconditioning_no,
+            "airconditioning_yes": airconditioning_yes,        
+            "prefarea_no": prefarea_no,
+            "prefarea_yes": prefarea_yes,
+            "furnishingstatus_furnished": furnishingstatus_furnished,
+            "furnishingstatus_semi-furnished": furnishingstatus_semi_furnished,
+            "furnishingstatus_unfurnished": furnishingstatus_unfurnished
         }
         df = pd.DataFrame(dict_entrada, index=[0])
         return df
     df = parametros()
     pd.set_option('display.max_columns', None)
-    print('PARAMETROS:',df)
-    sys.path.append("C:\\Abel\\Trabajo\Proyectos Ciencia de Datos\\House Price Prediction\\src\\data")
-    import Transform_cat_a_num_get_dummies
-    df_num = Transform_cat_a_num_get_dummies.cat_to_num(df)
-    print('df_num:',df_num)
-    df_train = pd.read_csv("C:\Abel\Trabajo\Proyectos Ciencia de Datos\House Price Prediction\data\processed\X_train_scaled.csv")
-    train_columns = df_train.columns
-    if 'Unnamed: 0' in df_train.columns:
-        df_train = df_train.drop(columns=['Unnamed: 0'])
-    # Asegúrate de que tenga todas las columnas necesarias
-    for col in train_columns:
-        if col not in df_num.columns:
-            df_num[col] = 0
-
-    # Selecciona solo las columnas que estaban en el DataFrame de entrenamiento
-    df_num = df_num[train_columns]
-    #print(df_train)
-    print(df_num)
-    # Ahora 'df_num' tiene la misma forma que 'df_train' y puedes usarlo para hacer tu predicción
     
-   #df_scaled = scaling(carga_robustscaler,df_num)
-    #print(df_num)
-    pred = prediction(carga_model,df_num)
+    sys.path.append("C:\\Abel\\Trabajo\Proyectos Ciencia de Datos\\House Price Prediction\\src\\data")
+    
+    df_scaled = scaling(carga_robustscaler,df)
+    pred = prediction(carga_model,df_scaled)
     print('La prediccion es:', pred)
     st.write(f'La predicción del precio de la vivienda es: {pred}')
 

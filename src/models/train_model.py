@@ -46,7 +46,7 @@ def scal_robust_scaler(X_train, X_test, X_val):
     from sklearn.preprocessing import RobustScaler
     robustscaler = RobustScaler()
     X_train_scaled = robustscaler.fit_transform(X_train)
-    X_train_scaled = pd.DataFrame(X_train_scaled)
+    X_train_scaled = pd.DataFrame(X_train_scaled, columns=X_train.columns)
     X_val_scaled = robustscaler.transform(X_val)
     X_val_scaled = pd.DataFrame(X_val_scaled)
     X_test_scaled = robustscaler.transform(X_test)
