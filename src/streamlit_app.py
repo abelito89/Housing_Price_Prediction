@@ -1,3 +1,13 @@
+"""Script que despliega el modelo de Machine Learning para Housing Price Prediction en una web de Streamlit
+Primeramente, importo las librerías necesarias y luego cargo los archivos .pkl que contienen al escalador utilizado y al modelo de Machine Learning, ambos entrenados previamente
+Existen 3 funciones:
+- scaling: se encarga de aplicar escalamiento al dataframe que se forme con los datos de entrada del usuario
+- prediction: se encarga de predecir el precio de una casa cuando se le pasen como parámetros el dataframe de entrada escalado y el modelo de Machine Learning entrenado
+- main: Implementa una web con streamlit. Se le pone titulo y cabecera a la página, luego se define una función parametros() que guarda los valores de las caracteristicas
+de la casa cuyo precio se desea predecir. Luego se llama secuencialmente a las funciones scaling y prediction para que procesen los datos de entrada e impriman en la web el precio predicho
+"""
+
+
 import streamlit as st
 import pickle 
 import pandas as pd
@@ -7,7 +17,7 @@ carga_model = pickle.load(open('../models/model_ensemble_trained.pkl', 'rb'))
 carga_robustscaler = pickle.load(open('../models/robust_scaled_trained.pkl', 'rb'))
 
 def scaling(carga_robustscaler,df):
-    return carga_robustscaler.fit_transform(df)
+    return carga_robustscaler.transform(df)
 
 
 def prediction(carga_model,df_scaled):
@@ -105,14 +115,11 @@ def main():
         df = pd.DataFrame(dict_entrada, index=[0])
         return df
     df = parametros()
-    pd.set_option('display.max_columns', None)
-    
+    pd.set_option('display.max_columns', None)    
     sys.path.append("C:\\Abel\\Trabajo\Proyectos Ciencia de Datos\\House Price Prediction\\src\\data")
-    
     df_scaled = scaling(carga_robustscaler,df)
     pred = prediction(carga_model,df_scaled)
-    print('La prediccion es:', pred)
-    st.write(f'La predicción del precio de la vivienda es: {pred}')
+    st.write(f'La predicción del precio de la vivienda es: {pred[0]}')
 
 
 if __name__ == '__main__':
