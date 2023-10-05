@@ -51,6 +51,9 @@ def scal_robust_scaler(X_train, X_test, X_val):
     X_val_scaled = pd.DataFrame(X_val_scaled)
     X_test_scaled = robustscaler.transform(X_test)
     X_test_scaled = pd.DataFrame(X_test_scaled)
+    with open('models/robust_scaled_trained.pkl', 'wb') as file:
+        pickle.dump(robustscaler, file)
+    X_train_scaled.to_csv('X_train_scaled.csv',index=False,header=True)
     return X_train_scaled, X_val_scaled, X_test_scaled
 
 
@@ -66,6 +69,12 @@ def val_R2_score(modelo_entrenado,X_val_scaled, y_val):
     best_model = modelo_entrenado.best_estimator_
     r2_score = best_model.score(X_val_scaled, y_val)
     return r2_score
+
+
+def RobustScaled_pickle(RobustScaled):
+    with open('models/robust_scaled_trained.pkl', 'wb') as file:
+        pickle.dump(RobustScaled, file)
+    return file
 
 
 def model_pickle(model):
