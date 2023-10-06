@@ -1,57 +1,22 @@
 House Price Prediction
 ==============================
 
-Practicing with House Price Prediction
+Practicing with House Price Prediction. Consiste en predecir el precio de una casa con determinadas caracteristicas conocidas. Este es mi primer proyecto en el que abarco todas las fases del proyecto de ciencia de datos:
+- limpieza de los datos
+- analisis exploratorio de datos
+- escalado de los datos con RobustScaler()
+- entrenamiento de un Ensemble Learning que combina un SVR con una Regresion Lineal
+- despliegue del modelo como una pagina web usando streamlit
 
-Project Organization
-------------
+## Instalación
 
-    ├── LICENSE
-    ├── Makefile           <- Makefile with commands like `make data` or `make train`
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    │   ├── external       <- Data from third party sources.
-    │   ├── interim        <- Intermediate data that has been transformed.
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's initials, and a short `-` delimited description, e.g.
-    │                         `1.0-jqp-initial-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, and all other explanatory materials.
-    │
-    ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── data           <- Scripts to download or generate data
-    │   │   └── make_dataset.py
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   └── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │       └── visualize.py
-    │
-    └── tox.ini            <- tox file with settings for running tox; see tox.readthedocs.io
+Para recrear el entorno virtual donde se desarrolla el proyecto es necesario instalar todo el contenido del archivo requirements.txt
+ejecutando en la raiz del proyecto el comando: pip install -r requirements.txt.
 
+## Uso
 
---------
+Para usar el proyecto en localhost se ejecuta en la raiz del proyecto el comando: streamlit run streamlit_app.py
+El cual pondra en funcionamiento la web que ve el usuario, donde se le proporcionan las caracteristicas de entrada y el modelo devuelve un valor predicho
+
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
